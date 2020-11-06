@@ -1,6 +1,10 @@
 package com.jitterted.ebp.blackjack;
 
 public class Rank {
+  public static final String JQK = "JQK";
+  public static final int INT_10 = 10;
+  public static final int INT_1 = 1;
+  public static final String A = "A";
   private final String rank;
 
   public Rank(String rank) {
@@ -12,13 +16,21 @@ public class Rank {
   }
 
   public int rankValue() {
-    if ("JQK".contains(rank)) {
-      return 10;
-    } else if (rank.equals("A")) {
-      return 1;
+    if (isJQK()) {
+      return INT_10;
+    } else if (isAce()) {
+      return INT_1;
     } else {
       return Integer.parseInt(rank);
     }
+  }
+
+  private boolean isAce() {
+    return rank.equals(A);
+  }
+
+  private boolean isJQK() {
+    return JQK.contains(rank);
   }
 
   public String display() {

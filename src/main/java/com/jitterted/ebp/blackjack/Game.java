@@ -8,6 +8,7 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class Game {
 
+  public static final String TEXT_Y = "y";
   private final Deck deck;
 
   private Hand dealerHand = new Hand();
@@ -36,12 +37,36 @@ public class Game {
 
     String input;
     do {
-      game.initialDeal();
-      game.play();
-      System.out.println("Play again? (y/n):");
-      Scanner scanner = new Scanner(System.in);
-      input = scanner.nextLine();
-    } while (input.equalsIgnoreCase("y"));
+      playCurrentGame(game);
+      input = getInputForNextGame();
+    } while (isInputY(input));
+  }
+
+  private static void playCurrentGame(Game game) {
+    game.initialDeal();
+    game.play();
+  }
+
+  private static String getInputForNextGame() {
+    String input;
+    displayPlayAgainMessage();
+    input = getNextInputLine();
+    return input;
+  }
+
+  private static String getNextInputLine() {
+    String input;
+    Scanner scanner = new Scanner(System.in);
+    input = scanner.nextLine();
+    return input;
+  }
+
+  private static void displayPlayAgainMessage() {
+    System.out.println("Play again? (y/n):");
+  }
+
+  private static boolean isInputY(String input) {
+    return input.equalsIgnoreCase(TEXT_Y);
   }
 
   private static void resetScreen() {
