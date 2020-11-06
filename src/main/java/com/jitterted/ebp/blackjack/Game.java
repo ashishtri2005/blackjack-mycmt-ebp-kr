@@ -13,7 +13,7 @@ public class Game {
 
   private Hand dealerHand = new Hand();
   private Hand playerHand = new Hand();
-  private int playerBalance = 0;
+  private Wallet playerBalance = new Wallet();
   private int playerBet = 0;
 
   public static void main(String[] args) {
@@ -209,27 +209,23 @@ public class Game {
   }
 
   public void playerDeposits(int amount) {
-    playerBalance += amount;
+    playerBalance.addMoney(amount);
   }
 
   public void playerBets(int betAmount) {
     playerBet = betAmount;
-    playerBalance -= betAmount;
+    playerBalance.bet(betAmount);
   }
 
   public int playerBalance() {
-    return playerBalance;
+    return playerBalance.balance();
   }
 
   public void playerWins() {
-    playerBalance += playerBet * 2;
-  }
-
-  public void playerLoses() {
-    playerBalance += playerBet * 0;
+    playerBalance.addMoney(playerBet * 2);
   }
 
   public void playerTies() {
-    playerBalance += playerBet * 1;
+    playerBalance.addMoney(playerBet);
   }
 }
